@@ -1,17 +1,9 @@
-# cordova-mongodb-storage
+# gudsi-mongodb-plugin
 
 This is a Cordova plugin that exposes the functionality of MongoDB Mobile to a Cordova Android app for local storage.
-##### [NPM](https://www.npmjs.com/package/cordova-mongodb-storage)
-
-
-
-**DISCLAIMER** 
-This is WIP. The plugin is far from complete and will contain bugs. If you encounter one or want additional functionality please open an issue.
-
-The plugin is only supported on Android as of this moment. I am working on an iOS version.
 
 ### Install
-To install this plugin run `cordova plugin add cordova-mongodb-storage` in your projects root folder.
+To install this plugin run `cordova plugin add gudsi-mongodb-plugin` in your projects root folder.
 
 
 ### Functionality
