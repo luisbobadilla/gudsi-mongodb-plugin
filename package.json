@@ -1,0 +1,44 @@
+{
+  "name": "gudsi-mongodb-plugin",
+  "version": "0.0.6",
+  "description": "This plugin provides a mongodb local storage option to Cordova based applications.",
+  "cordova": {
+    "id": "gudsi-mongodb-plugin",
+    "platforms": [
+      "android"
+    ]
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luisbobadilla/gudsi-mongodb-plugin/li"
+  },
+  "keywords": [
+    "mongodb",
+    "plugin",
+    "stitchSDK",
+    "Mongodb mobile",
+    "cordova",
+    "phonegap",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "scripts": {
+    "test": "mocha -r ts-node/register 'typescript/**/*.spec.ts'"
+  },
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "author": "Luis Bobadilla",
+  "bugs": {
+    "url": "https://github.com/luisbobadilla/gudsi-mongodb-plugin/issues"
+  },
+  "homepage": "https://github.com/luisbobadilla/gudsi-mongodb-plugin.git",
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}

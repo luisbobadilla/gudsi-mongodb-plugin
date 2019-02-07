@@ -1,0 +1,30 @@
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="gudsi-mongodb-plugin" version="1.0.0">
+    <name>Mongodb</name>
+    <description>Cordova MongoDB Mobile Plugin</description>
+    <keywords>Mongo,MongoDB, MongoDB Mobile</keywords>
+
+    <engines>
+        <engine name="cordova" version=">=3.0.0"/>
+    </engines>
+
+    <js-module src="www/plugin.js" name="mongodb">
+        <clobbers target="cordova.plugins.mongodb" />
+    </js-module>
+
+
+    <platform name="android">
+        <framework src="build-extras.gradle" custom="true" type="gradleReference"/>
+        <config-file target="config.xml" parent="/*">
+            <feature name="Mongodb">
+                <param name="android-package" value="com.gudsi.mongodb.Mongodb"/>
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/com/gudsi/mongodb/Mongodb.java" target-dir="src/com/gudsi/mongodb" />
+        <source-file src="src/android/com/gudsi/mongodb/MongodbControl.java" target-dir="src/com/gudsi/mongodb" />
+        <source-file src="src/android/com/gudsi/mongodb/DatabaseControl.java" target-dir="src/com/gudsi/mongodb" />
+        <source-file src="src/android/com/gudsi/mongodb/CollectionControl.java" target-dir="src/com/gudsi/mongodb" />
+       </platform>
+</plugin>
