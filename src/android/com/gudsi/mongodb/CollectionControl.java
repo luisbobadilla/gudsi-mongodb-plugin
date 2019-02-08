@@ -94,14 +94,14 @@ public class CollectionControl {
     return results;
   }
 
-  public int count(String databaseName, String collectionName, JSONObject query) {
+  public int count(String databaseName, String collectionName, JSONObject filter) {
     MongoCollection<Document> localCollection = mobileClient.getDatabase(databaseName).getCollection(collectionName);
-    return (int) localCollection.count(Document.parse(query.toString()));
+    return (int) localCollection.count(Document.parse(filter.toString()));
   }
 
-  public JSONArray find(String databaseName, String collectionName, JSONObject query) {
+  public JSONArray find(String databaseName, String collectionName, JSONObject filter) {
     MongoCollection<Document> localCollection = mobileClient.getDatabase(databaseName).getCollection(collectionName);
-    Document query = Document.parse(query.toString());
+    Document query = Document.parse(filter.toString());
     FindIterable<Document> cursor = localCollection.find(query);
     ArrayList<Document> results = (ArrayList<Document>) cursor.into(new ArrayList<Document>());
     JSONArray _result = new JSONArray();
