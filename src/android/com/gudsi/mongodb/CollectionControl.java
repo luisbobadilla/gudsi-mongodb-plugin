@@ -26,43 +26,44 @@ import com.mongodb.client.MongoCollection;
 
 import java.util.ArrayList;
 
-
 public class CollectionControl {
 
   MongoClient mobileClient;
-  public void setClient(MongoClient _mobileClient){
-    mobileClient=_mobileClient;
+
+  public void setClient(MongoClient _mobileClient) {
+    mobileClient = _mobileClient;
   }
+
   public String createIndex(String databaseName, String collectionName, JSONObject keys, JSONObject indexOptions) {
     MongoCollection<Document> localCollection = mobileClient.getDatabase(databaseName).getCollection(collectionName);
     Document _keys = Document.parse(keys.toString());
-    IndexOptions _indexOptions= new IndexOptions();
+    IndexOptions _indexOptions = new IndexOptions();
     Iterator<String> opts = indexOptions.keys();
     try {
       while (opts.hasNext()) {
         String _option = opts.next();
-        switch (_option){
-          case "name":
-            _indexOptions.name(indexOptions.getString("name"));
-            break;
-          case "expireAfter":
-            _indexOptions.expireAfter(indexOptions.getLong("expireAfter"),TimeUnit.MILLISECONDS);
-            break;
-          case "unique":
-            _indexOptions.unique(indexOptions.getBoolean("unique"));
-            break;
-          case "max":
-            _indexOptions.max(indexOptions.getDouble("max"));
-            break;
-          case "min":
-            _indexOptions.min(indexOptions.getDouble("min"));
-            break;
+        switch (_option) {
+        case "name":
+          _indexOptions.name(indexOptions.getString("name"));
+          break;
+        case "expireAfter":
+          _indexOptions.expireAfter(indexOptions.getLong("expireAfter"), TimeUnit.MILLISECONDS);
+          break;
+        case "unique":
+          _indexOptions.unique(indexOptions.getBoolean("unique"));
+          break;
+        case "max":
+          _indexOptions.max(indexOptions.getDouble("max"));
+          break;
+        case "min":
+          _indexOptions.min(indexOptions.getDouble("min"));
+          break;
         }
       }
     } catch (JSONException e) {
       return "false";
     }
-    String name = localCollection.createIndex(_keys,_indexOptions);
+    String name = localCollection.createIndex(_keys, _indexOptions);
     return name;
 
   }
@@ -72,20 +73,20 @@ public class CollectionControl {
       MongoCollection<Document> localCollection = mobileClient.getDatabase(databaseName).getCollection(collectionName);
       localCollection.dropIndex(indexName);
       return "true";
-    }catch(MongoCommandException e){
+    } catch (MongoCommandException e) {
       return "false";
     }
   }
 
   public ArrayList<Document> aggregate(String databaseName, String collectionName, JSONArray pipeline) {
     MongoCollection<Document> localCollection = mobileClient.getDatabase(databaseName).getCollection(collectionName);
-    List<Bson> _pipeline=new ArrayList();
+    List<Bson> _pipeline = new ArrayList();
     try {
       for (int i = 0, size = pipeline.length(); i < size; i++) {
         JSONObject stage = pipeline.getJSONObject(i);
         _pipeline.add(Document.parse(stage.toString()));
       }
-    } catch(JSONException err){
+    } catch (JSONException err) {
 
     }
     AggregateIterable<Document> cursor = localCollection.aggregate(_pipeline);
@@ -93,23 +94,23 @@ public class CollectionControl {
     return results;
   }
 
-  public int count(String databaseName, String collectionName, JSONObject filter) {
+  public int count(String databaseName, String collectionName, JSONObject query) {
     MongoCollection<Document> localCollection = mobileClient.getDatabase(databaseName).getCollection(collectionName);
-    return (int)localCollection.count(Document.parse(filter.toString()));
+    return (int) localCollection.count(Document.parse(query.toString()));
   }
 
-  public JSONArray find(String databaseName, String collectionName, JSONObject filter) {
+  public JSONArray find(String databaseName, String collectionName, JSONObject query) {
     MongoCollection<Document> localCollection = mobileClient.getDatabase(databaseName).getCollection(collectionName);
-    Document query = Document.parse(filter.toString());
+    Document query = Document.parse(query.toString());
     FindIterable<Document> cursor = localCollection.find(query);
     ArrayList<Document> results = (ArrayList<Document>) cursor.into(new ArrayList<Document>());
     JSONArray _result = new JSONArray();
-    try{
+    try {
       for (int i = 0; i < results.size(); i++) {
         JSONObject json = new JSONObject(results.get(i).toJson());
         _result.put(json);
       }
-    }catch (JSONException e){
+    } catch (JSONException e) {
       e.printStackTrace();
     }
     return _result;
@@ -121,9 +122,9 @@ public class CollectionControl {
     Document queryResult = localCollection.find(query).first();
     JSONObject _response = null;
     if (queryResult != null) {
-      try{
+      try {
         _response = new JSONObject(queryResult.toJson());
-      }catch (JSONException e){
+      } catch (JSONException e) {
         e.printStackTrace();
       }
     }
@@ -132,14 +133,14 @@ public class CollectionControl {
 
   public JSONObject findById(String database, String collection, String id) {
     MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
-    JSONObject _query= new JSONObject();
+    JSONObject _query = new JSONObject();
     try {
-      try{
-        ObjectId oid=new ObjectId(id);
-        JSONObject _oid=new JSONObject();
-        _oid.put("$oid",id);
+      try {
+        ObjectId oid = new ObjectId(id);
+        JSONObject _oid = new JSONObject();
+        _oid.put("$oid", id);
         _query.put("_id", _oid);
-      }catch (IllegalArgumentException ie){
+      } catch (IllegalArgumentException ie) {
         _query.put("_id", new JSONObject(id));
       }
     } catch (JSONException e) {
@@ -149,12 +150,12 @@ public class CollectionControl {
         e.printStackTrace();
       }
     }
-    Document queryResult =  localCollection.find(Document.parse(_query.toString())).first();
+    Document queryResult = localCollection.find(Document.parse(_query.toString())).first();
     JSONObject _response = null;
     if (queryResult != null) {
-      try{
+      try {
         _response = new JSONObject(queryResult.toJson());
-      }catch (JSONException e){
+      } catch (JSONException e) {
         e.printStackTrace();
       }
     }
@@ -168,9 +169,9 @@ public class CollectionControl {
     Document result = localCollection.findOneAndUpdate(query, updateDoc);
     JSONObject _response = null;
     if (result != null) {
-      try{
+      try {
         _response = new JSONObject(result.toJson());
-      }catch (JSONException e){
+      } catch (JSONException e) {
         e.printStackTrace();
       }
     }
@@ -184,9 +185,9 @@ public class CollectionControl {
     Document result = localCollection.findOneAndReplace(query, replaceDoc);
     JSONObject _response = null;
     if (result != null) {
-      try{
+      try {
         _response = new JSONObject(result.toJson());
-      }catch (JSONException e){
+      } catch (JSONException e) {
         e.printStackTrace();
       }
     }
@@ -199,9 +200,9 @@ public class CollectionControl {
     Document result = localCollection.findOneAndDelete(query);
     JSONObject _response = null;
     if (result != null) {
-      try{
+      try {
         _response = new JSONObject(result.toJson());
-      }catch (JSONException e){
+      } catch (JSONException e) {
         e.printStackTrace();
       }
     }
@@ -213,9 +214,9 @@ public class CollectionControl {
     Document _document = Document.parse(document.toString());
     localCollection.insertOne(_document);
     JSONObject _response = new JSONObject();
-    try{
+    try {
       _response = new JSONObject(_document.toJson());
-    }catch (JSONException e){
+    } catch (JSONException e) {
       e.printStackTrace();
     }
 
@@ -224,7 +225,7 @@ public class CollectionControl {
 
   public JSONArray insertMany(String database, String collection, JSONArray documents) {
     MongoCollection<Document> localCollection = mobileClient.getDatabase(database).getCollection(collection);
-    List<Document> _documents=new ArrayList();
+    List<Document> _documents = new ArrayList();
     JSONArray _result = new JSONArray();
     try {
       for (int i = 0, size = documents.length(); i < size; i++) {
@@ -236,7 +237,7 @@ public class CollectionControl {
         JSONObject json = new JSONObject(_documents.get(i).toJson());
         _result.put(json);
       }
-    } catch(JSONException e){
+    } catch (JSONException e) {
       e.printStackTrace();
     }
     return _result;
@@ -249,15 +250,15 @@ public class CollectionControl {
     UpdateResult result = localCollection.replaceOne(query, updateDoc, new UpdateOptions().upsert(true));
     JSONObject _result = new JSONObject();
     try {
-      _result.put("matchedCount",result.getMatchedCount());
-      _result.put("modifiedCount",result.getModifiedCount());
+      _result.put("matchedCount", result.getMatchedCount());
+      _result.put("modifiedCount", result.getModifiedCount());
       BsonValue id = result.getUpsertedId();
-      if(id != null){
-        JSONObject oid=new JSONObject();
-        oid.put("$oid",id.asObjectId().getValue());
-        _result.put("upsertedId",oid);
+      if (id != null) {
+        JSONObject oid = new JSONObject();
+        oid.put("$oid", id.asObjectId().getValue());
+        _result.put("upsertedId", oid);
       }
-      _result.put("filter",criteria);
+      _result.put("query", criteria);
     } catch (JSONException e) {
       e.printStackTrace();
     }
@@ -271,15 +272,15 @@ public class CollectionControl {
     UpdateResult result = localCollection.updateOne(query, updateDoc);
     JSONObject _result = new JSONObject();
     try {
-      _result.put("matchedCount",result.getMatchedCount());
-      _result.put("modifiedCount",result.getModifiedCount());
+      _result.put("matchedCount", result.getMatchedCount());
+      _result.put("modifiedCount", result.getModifiedCount());
       BsonValue id = result.getUpsertedId();
-      if(id != null){
-        JSONObject oid=new JSONObject();
-        oid.put("$oid",id.asObjectId().getValue());
-        _result.put("upsertedId",oid);
+      if (id != null) {
+        JSONObject oid = new JSONObject();
+        oid.put("$oid", id.asObjectId().getValue());
+        _result.put("upsertedId", oid);
       }
-      _result.put("filter",criteria);
+      _result.put("query", criteria);
     } catch (JSONException e) {
       e.printStackTrace();
     }
@@ -293,15 +294,15 @@ public class CollectionControl {
     UpdateResult result = localCollection.updateMany(query, updateDoc);
     JSONObject _result = new JSONObject();
     try {
-      _result.put("matchedCount",result.getMatchedCount());
-      _result.put("modifiedCount",result.getModifiedCount());
+      _result.put("matchedCount", result.getMatchedCount());
+      _result.put("modifiedCount", result.getModifiedCount());
       BsonValue id = result.getUpsertedId();
-      if(id != null){
-        JSONObject oid=new JSONObject();
-        oid.put("$oid",id.asObjectId().getValue());
-        _result.put("upsertedId",oid);
+      if (id != null) {
+        JSONObject oid = new JSONObject();
+        oid.put("$oid", id.asObjectId().getValue());
+        _result.put("upsertedId", oid);
       }
-      _result.put("filter",criteria);
+      _result.put("query", criteria);
     } catch (JSONException e) {
       e.printStackTrace();
     }
@@ -314,8 +315,8 @@ public class CollectionControl {
     DeleteResult result = localCollection.deleteOne(query);
     JSONObject _result = new JSONObject();
     try {
-      _result.put("deletedCount",result.getDeletedCount());
-      _result.put("filter",criteria);
+      _result.put("deletedCount", result.getDeletedCount());
+      _result.put("query", criteria);
     } catch (JSONException e) {
       e.printStackTrace();
     }
@@ -328,8 +329,8 @@ public class CollectionControl {
     DeleteResult result = localCollection.deleteMany(query);
     JSONObject _result = new JSONObject();
     try {
-      _result.put("deletedCount",result.getDeletedCount());
-      _result.put("filter",criteria);
+      _result.put("deletedCount", result.getDeletedCount());
+      _result.put("query", criteria);
     } catch (JSONException e) {
       e.printStackTrace();
     }

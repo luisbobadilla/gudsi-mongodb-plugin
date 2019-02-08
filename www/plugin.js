@@ -7,8 +7,8 @@
     return call('Mongodb', 'initiate', [appId]);
   };
 
-  mongodb.prototype.dropDatabase = function (databaseName, collectionName, schema) {
-    return call('Mongodb', 'dropDatabase', [databaseName, collectionName, schema]);
+  mongodb.prototype.dropDatabase = function (databaseName) {
+    return call('Mongodb', 'dropDatabase', [databaseName]);
   };
 
   //database functions
@@ -37,32 +37,32 @@
     return call('Mongodb', 'aggregate', [databaseName, collectionName, pipeline||[]]);
   };
 
-  mongodb.prototype.count = function (databaseName, collectionName, filter) {
-    return call('Mongodb', 'count', [databaseName, collectionName, filter||{}]);
+  mongodb.prototype.count = function (databaseName, collectionName, query) {
+    return call('Mongodb', 'count', [databaseName, collectionName, query||{}]);
   };
 
-  mongodb.prototype.find = function (databaseName, collectionName, filter) {
-    return call('Mongodb', 'find', [databaseName, collectionName, filter||{}]);
+  mongodb.prototype.find = function (databaseName, collectionName, query) {
+    return call('Mongodb', 'find', [databaseName, collectionName, query||{}]);
   };
 
-  mongodb.prototype.findOne = function (databaseName, collectionName, filter) {
-    return call('Mongodb', 'findOne', [databaseName, collectionName, filter||{}]);
+  mongodb.prototype.findOne = function (databaseName, collectionName, query) {
+    return call('Mongodb', 'findOne', [databaseName, collectionName, query||{}]);
   };
 
   mongodb.prototype.findById = function (databaseName, collectionName,id) {
     return call('Mongodb', 'findById', [databaseName, collectionName,id||'']);
   };
 
-  mongodb.prototype.findOneAndUpdate = function (databaseName, collectionName,filter, update) {
-    return call('Mongodb', 'findOneAndUpdate', [databaseName, collectionName,filter, update]);
+  mongodb.prototype.findOneAndUpdate = function (databaseName, collectionName,query, update) {
+    return call('Mongodb', 'findOneAndUpdate', [databaseName, collectionName,query, update]);
   };
 
-  mongodb.prototype.findOneAndReplace = function (databaseName, collectionName,filter, update) {
-    return call('Mongodb', 'findOneAndReplace', [databaseName, collectionName,filter, update]);
+  mongodb.prototype.findOneAndReplace = function (databaseName, collectionName,query, update) {
+    return call('Mongodb', 'findOneAndReplace', [databaseName, collectionName,query, update]);
   };
 
-  mongodb.prototype.findOneAndDelete = function (databaseName, collectionName,filter) {
-    return call('Mongodb', 'findOneAndDelete', [databaseName, collectionName,filter]);
+  mongodb.prototype.findOneAndDelete = function (databaseName, collectionName,query) {
+    return call('Mongodb', 'findOneAndDelete', [databaseName, collectionName,query]);
   };
 
   mongodb.prototype.insertOne = function (databaseName, collectionName, document) {
@@ -73,24 +73,24 @@
     return call('Mongodb', 'insertMany', [databaseName, collectionName, documents||[]]);
   };
 
-  mongodb.prototype.replaceOne = function (databaseName, collectionName, filter, update) {
-    return call('Mongodb', 'replaceOne', [databaseName, collectionName, filter, update]);
+  mongodb.prototype.replaceOne = function (databaseName, collectionName, query, update) {
+    return call('Mongodb', 'replaceOne', [databaseName, collectionName, query, update]);
   };
 
-  mongodb.prototype.updateOne = function (databaseName, collectionName, filter, update) {
-    return call('Mongodb', 'updateOne', [databaseName, collectionName, filter, update]);
+  mongodb.prototype.updateOne = function (databaseName, collectionName, query, update) {
+    return call('Mongodb', 'updateOne', [databaseName, collectionName, query, update]);
   };
 
-  mongodb.prototype.updateMany = function (databaseName, collectionName, filter, update) {
-    return call('Mongodb', 'updateMany', [databaseName, collectionName, filter, update]);
+  mongodb.prototype.updateMany = function (databaseName, collectionName, query, update) {
+    return call('Mongodb', 'updateMany', [databaseName, collectionName, query, update]);
   };
 
-  mongodb.prototype.deleteOne = function (databaseName, collectionName, filter) {
-    return call('Mongodb', 'deleteOne', [databaseName, collectionName, filter]);
+  mongodb.prototype.deleteOne = function (databaseName, collectionName, query) {
+    return call('Mongodb', 'deleteOne', [databaseName, collectionName, query]);
   };
 
-  mongodb.prototype.deleteMany = function (databaseName, collectionName, filter) {
-    return call('Mongodb', 'deleteMany', [databaseName, collectionName, filter]);
+  mongodb.prototype.deleteMany = function (databaseName, collectionName, query) {
+    return call('Mongodb', 'deleteMany', [databaseName, collectionName, query]);
   };
 
   function call(className, action, options) {
