@@ -1,6 +1,6 @@
 {
   "name": "gudsi-mongodb-plugin",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "This plugin provides a mongodb local storage option to Cordova based applications.",
   "cordova": {
     "id": "gudsi-mongodb-plugin",
@@ -37,8 +37,6 @@
     "url": "https://github.com/luisbobadilla/gudsi-mongodb-plugin/issues"
   },
   "homepage": "https://github.com/luisbobadilla/gudsi-mongodb-plugin.git",
-  "dependencies": {
-  },
-  "devDependencies": {
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }

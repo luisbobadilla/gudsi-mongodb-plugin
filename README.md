@@ -5,6 +5,9 @@ This is a Cordova plugin that exposes the functionality of MongoDB Mobile to a C
 ### Install
 To install this plugin run `cordova plugin add gudsi-mongodb-plugin` in your projects root folder.
 
+### Ionic integration
+To use the plugin in ionic project run `npm install ionic-native-mongodb` in your projects root folder.<br>
+[Ionic Native MongoDB](https://github.com/luisbobadilla/ionic-native-mongodb) 
 
 ### Functions
 
